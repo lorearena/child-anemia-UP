@@ -6,3 +6,4 @@ Script outline:
    3.a T-test and chi-squared to assess whether statistical significance is detected among selected variables between anemic (<11g/dL) and non-anemic.
    3.b Univariate and bivariate analysis to identify risk factor using multivariate logistic regression model
 4. Data visualisation: Kernel density plot, boxplots, bubble map, and cloropleth map
+
