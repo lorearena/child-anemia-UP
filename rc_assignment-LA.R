@@ -1,6 +1,6 @@
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 #set working directory where the file is located
-setwd("C:/Users/laren/Documents/CV/Applications/Companies/IAVI/Research Consultant") 
+setwd("") 
 
 #check working directory
 getwd()
@@ -26,7 +26,7 @@ options(digits=4, scipen = 999)     # Will use until the 4 decimal and not the s
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 #Load Children's Recode data from the National Family Health Survey (NFHS) -5 for Uttar Pradesh
-df <- read.csv("data-raw/IAKR7EF_UP.csv")
+df <- read.csv("data-raw/data_UP.csv")
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
