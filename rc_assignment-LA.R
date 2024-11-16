@@ -101,23 +101,6 @@ df_VOI <- df %>%
   filter (state==state) %>% # change State to the state of interest
   select(caseid, v021, v022, sdist, v005, sweight, hw1, b4, v025, v130, s116, v133, m14, v161, v456, hw56, state) 
 
-# •	Case Identification (caseid)
-# •	Primary Sampling Unit (v021)
-# •	Strata (v022)
-# •	District (sdist)
-# •	Sampling Weights National (v005)
-# •	Sampling Weights State (sweight)
-# •	Child's age (hw1)
-# •	Child's sex (b4)
-# •	Residence (v025)
-# •	Religion (v130)
-# •	Caste (s116)
-# •	Mother's years of education (v133)
-# •	Number of ANC visits of mothers for last birth (m14)
-# •	Cooking fuel (v161) 
-# •	Child’s Hemoglobin (hw56)
-# •	Mother’s Hemoglobin (v456)
-
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 df_VOI %>% str()
