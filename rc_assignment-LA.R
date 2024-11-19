@@ -62,8 +62,17 @@ analyze_exposure <- function(exposure) {
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 #Select the variables of interest for the analysis
+#Define the state of interest
+state <- "Uttar Pradesh"
+
+#Include di into the dataset
+df <- df %>% mutate(state=state)
+#Select the variables of interest for the analysis
 df_VOI <- df %>%
+  filter(state==state) %>%  #filter for the state of interest
   select(caseid, v021, v022, sdist, v005, sweight, hw1, b4, v025, v130, s116, v133, m14, v161, v456, hw56, state) 
+df_VOI <- df %>%
+  select(caseid, v021, v022, sdist, v005, sweight, hw1, b4, v025, v130, s116, v133, m14, v161, v456, hw56) 
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
@@ -144,7 +153,7 @@ df_VOI %>%
 # Use impute_value function defined above to calculate the mean hb
 #Define new datasets for mean imputation
 df_impute <- df_VOI %>%
-                  mutate(value = ifelse(is.na(hw56), mean(hw56, na.rm = TRUE), value))    
+                  mutate(hw56 = ifelse(is.na(hw56), mean(hw56, na.rm = TRUE), hw56))    
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 #It does for m14 among children based on sex (variable v130)
@@ -154,7 +163,7 @@ df_complete %>%
 
 # Use impute_value function defined above to calculate the mean anc values
 df_complete <- df_complete %>%
-                  mutate(value = ifelse(is.na(hw56), mean(m14, na.rm = TRUE), value))    
+                  mutate(m14 = ifelse(is.na(m14), mean(m14, na.rm = TRUE), m14))    
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
