@@ -1,12 +1,4 @@
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-#set working directory where the file is located
-setwd("") 
-
-#check working directory
-getwd()
-
-
-## ----------------------------------------------------------------------------------------------------------------------------------------
 ### Packages ### ----------------------------------------------------------------
 
 pacman::p_load(
@@ -25,8 +17,8 @@ options(digits=4, scipen = 999)     # Will use until the 4 decimal and not the s
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-#Load Children's Recode data from the National Family Health Survey (NFHS) -5 for Uttar Pradesh
-df <- read.csv("data-raw/data_UP.csv")
+#Load data
+df <- read.csv("")  #add pathfile
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
@@ -91,14 +83,8 @@ analyze_exposure <- function(exposure) {
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-# Define the state variable at the beginning so that it can be reused across the code:
-state <- "Uttar Pradesh"
-# Define the state variable within the dataset
-df <- df %>% mutate(state = state) 
-
 #Select the variables of interest for the analysis
 df_VOI <- df %>%
-  filter (state==state) %>% # change State to the state of interest
   select(caseid, v021, v022, sdist, v005, sweight, hw1, b4, v025, v130, s116, v133, m14, v161, v456, hw56, state) 
 
 
@@ -144,15 +130,9 @@ df_VOI %>% missmap(y.at=c(1),y.labels = c(''),col=c('yellow','black'))
 # Checking Missing Values as a Percentage
 print ("Missing values present:")
 df_VOI %>% sapply(function(x) mean(is.na(x)) * 100) 
-#s116= 0.36% NAs  •	Caste 
-#hw1= 6.6% NA     •	Child's age
-#m14= 28.88% NAs  •	Number of ANC visits of mothers for last birth
-#hw56= 25.77% NAs •	Child’s Hemoglobin
-
-
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-# using drop_na() function
+# using drop_na() function to remove missing values
 df_complete <- df_VOI %>% drop_na(hw56)
 
 
@@ -183,12 +163,10 @@ df_VOI %>%
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-# Use impute_value function defined above to calculate the mean hb values per sex
+# Use impute_value function defined above to calculate the mean hb
 #Define new datasets for mean imputation
-df_impute <- df_VOI         
-fixed.value_hw56 <- impute_value(df_impute$hw56, df_impute$b4)
-df_impute$hw56 <- fixed.value_hw56  #Create new column where NAs are treated as mean
-
+df_impute <- df_VOI %>%
+                  mutate(value = ifelse(is.na(hw56), mean(hw56, na.rm = TRUE), value))    
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 #It does for m14 among children based on sex (variable v130)
@@ -196,9 +174,9 @@ df_complete %>%
   ggplot(aes(b4,m14)) +
   geom_boxplot(aes(group=b4,fill=b4))
 
-# Use impute_value function defined above to calculate the mean anc values per sex
-fixed.value_m14 <- impute_value(df_complete$m14, df_complete$b4)  #imputing by sex, even though there is not a clear difference
-df_complete$m14<- fixed.value_m14  #Create new column where NAs are treated as mean
+# Use impute_value function defined above to calculate the mean anc values
+df_complete <- df_complete %>%
+                  mutate(value = ifelse(is.na(hw56), mean(m14, na.rm = TRUE), value))    
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
