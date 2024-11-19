@@ -22,28 +22,6 @@ df <- read.csv("")  #add pathfile
 
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
-# Function to allocate the mean values per variable to the missing values
-impute_value <- function(value, class) {
-    # Calculate the mean age for each class, excluding NA values in age
-    mean_value <- tapply(value, class, mean, na.rm = TRUE)
-    
-    # Create an output vector
-    out <- value
-    
-    # Loop through each element
-    for (i in 1:length(value)) {
-        # Check if age is NA
-        if (is.na(value[i])) {
-            # Impute based on the class mean
-            out[i] <- mean_value[class[i]]
-        } else {
-            # Keep the original age if not missing
-            out[i] <- value[i]
-        }
-    }
-    return(out)
-}
-
 # Function to print only the table from tab1
 print_tab1_only <- function(var) {
   tab1(var, cum.percent = FALSE, graph = FALSE)
