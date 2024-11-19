@@ -3,6 +3,9 @@
 # Child Anemia in Uttar Pradesh, India
 
 ### Packages ### ----------------------------------------------------------------
+if (!requireNamespace("pacman", quietly = TRUE)) {
+  install.packages("pacman")
+}
 
 pacman::p_load(
   "conflicted", 
