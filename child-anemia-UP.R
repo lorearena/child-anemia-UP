@@ -5,7 +5,6 @@
 ### Packages ### ----------------------------------------------------------------
 
 pacman::p_load(
-  "here",
   "conflicted", 
   "tidyverse",
   "Amelia",                        # To visualize missing values
@@ -23,7 +22,7 @@ options(digits=4, scipen = 999)     # Will use until the 4 decimal and not the s
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 #Load dataset
-df <-read.csv(here("data-raw/IAKR7EF_UP.csv"))
+df <-read.csv(here::here("data-raw/IAKR7EF_UP.csv"))
 
 ## ----------------------------------------------------------------------------------------------------------------------------------------
 # Function to print only the table from tab1
